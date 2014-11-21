@@ -19,7 +19,6 @@ TrelloClone.Views.BoardIndex = Backbone.CompositeView.extend({
 		this.removeSubview(".boards", boardShow);
 	},
 	render: function(){
-		var that = this;
 		var content = this.template({
 			boards: this.collection
 		});
