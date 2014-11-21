@@ -17,7 +17,7 @@ TrelloClone.Views.BoardIndex = Backbone.CompositeView.extend({
 			return subview.model === board;
 		});
 		this.removeSubview(".boards", boardShow);
-	}
+	},
 	render: function(){
 		var that = this;
 		var content = this.template({
@@ -25,7 +25,7 @@ TrelloClone.Views.BoardIndex = Backbone.CompositeView.extend({
 		});
 
 		this.$el.html(content);
-		this.attachSubViews();
+		this.attachSubviews();
 		return this;
 	}
 })
