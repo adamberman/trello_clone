@@ -6,10 +6,10 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
 		this.collection.each(this.addList.bind(this));
 	},
 	template: JST['boards/board_show'],
-	addList: function(list){
-		
+	addListIndex: function(listIndex){
+
 	},
-	removeList: function(list){
+	removeListIndex: function(listIndex){
 
 	},
 	render: function(){
