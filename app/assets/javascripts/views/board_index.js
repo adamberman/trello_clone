@@ -20,7 +20,7 @@ TrelloClone.Views.BoardIndex = Backbone.CompositeView.extend({
 	},
 	render: function(){
 		var content = this.template({
-			boards: this.collection
+			boards: this.collection // is this necessary? I don't think so...
 		});
 
 		this.$el.html(content);
