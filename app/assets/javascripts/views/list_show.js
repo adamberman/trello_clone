@@ -1,26 +1,26 @@
 TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
 	initialize: function(){
 		this.listenTo(this.collection, "sync", this.render);
-		this.listenTo(this.collection, "add", this.addCard);
-		this.listenTo(this.collection, "remove", this.removeCard);
-		this.collection.each(this.addCard.bind(this));
+		this.listenTo(this.collection, "add", this.addCardIndex);
+		this.listenTo(this.collection, "remove", this.removeCardIndex);
+		this.addCardIndex(this.model);
 	},
 	template: JST['lists/list_show'],
-	addCard: function(card){
-		var cardShow = new TrelloClone.Views.CardItem({
-			model: card
+	addCardIndex: function(cardIndex){
+		var cardIndexShow = new TrelloClone.Views.CardIndex({
+			collection: cardIndex.cards()
 		});
-		this.addSubview(".cards", cardShow);
+		this.addSubview(".cardIndex", cardIndexShow);
 	},
-	removeCard: function(card){
-		var cardShow = _.find(this.subviews(".cards"), function(subview){
-			return subview.model === card;
+	removeCardIndex: function(cardIndex){
+		var cardIndexShow = _.find(this.subviews(".cardIndex"), function(subview){
+			return subview.model === cardIndex;
 		});
-		this.removeSubview(".cards", cardShow);
+		this.removeSubview(".cardIndex", cardIndexShow);
 	},
 	render: function(){
 		var content = this.template({
-			card: this.model
+			list: this.model
 		});
 		this.$el.html(content);
 		this.attachSubviews();
