@@ -8,7 +8,7 @@ TrelloClone.Views.CardIndex = Backbone.CompositeView.extend({
 	template: JST['cards/card_index'],
 	addCard: function(card){
 		var cardShow = new TrelloClone.Views.CardItem({
-			card: card
+			model: card
 		});
 		this.addSubview(".cards", cardShow);
 	},

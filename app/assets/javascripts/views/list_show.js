@@ -1,8 +1,6 @@
 TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
 	initialize: function(){
-		this.listenTo(this.collection, "sync", this.render);
-		this.listenTo(this.collection, "add", this.addCardIndex);
-		this.listenTo(this.collection, "remove", this.removeCardIndex);
+		this.listenTo(this.model, "sync", this.render);
 		this.addCardIndex(this.model);
 	},
 	template: JST['lists/list_show'],
@@ -10,13 +8,13 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
 		var cardIndexShow = new TrelloClone.Views.CardIndex({
 			collection: cardIndex.cards()
 		});
-		this.addSubview(".cardIndex", cardIndexShow);
+		this.addSubview(".card-index", cardIndexShow);
 	},
 	removeCardIndex: function(cardIndex){
-		var cardIndexShow = _.find(this.subviews(".cardIndex"), function(subview){
+		var cardIndexShow = _.find(this.subviews(".card-index"), function(subview){
 			return subview.model === cardIndex;
 		});
-		this.removeSubview(".cardIndex", cardIndexShow);
+		this.removeSubview(".card-index", cardIndexShow);
 	},
 	render: function(){
 		var content = this.template({
