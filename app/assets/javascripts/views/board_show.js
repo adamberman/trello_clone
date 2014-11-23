@@ -4,6 +4,10 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
 		this.addListIndex(this.model);
 	},
 	template: JST['boards/board_show'],
+	events: {
+		"click button.delete": "deleteBoard",
+		"click button.back": "back"
+	},
 	addListIndex: function(listIndex){
 		var listIndexShow = new TrelloClone.Views.ListIndex({
 			model: listIndex,
@@ -11,12 +15,15 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
 		});
 		this.addSubview(".list-index", listIndexShow);
 	},
-	removeListIndex: function(listIndex){
-		var listIndexShow = _.find(this.subviews(".list-index"), function(subview){
-			return subview.model === listIndex;
-		});
-		this.removeSubview(".list-index", listIndexShow);
+	deleteBoard: function(event){
+		event.preventDefault();
+		this.model.destroy();
+		Backbone.history.navigate('', { trigger: true });
 	},
+	back: function(){
+		event.preventDefault();
+		Backbone.history.navigate('', { trigger: true });
+	}
 	render: function(){
 		var content = this.template({
 			board: this.model
