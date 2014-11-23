@@ -4,13 +4,13 @@ TrelloClone.Views.BoardIndex = Backbone.CompositeView.extend({
 		this.listenTo(this.collection, "add", this.addBoard);
 		this.listenTo(this.collection, "remove", this.removeBoard);
 		this.collection.each(this.addBoard.bind(this));
-		var boardNewView = new TrelloClone.Views.BoardIndexNewItem();
-		this.addSubview(".new-board", boardNewView);
+		this.addNewBoardButton();
 	},
 	template: JST['boards/board_index'],
 	events: {
 		"click button.board": "selectBoard",
-		"click button.new-board": "newBoard"
+		"click button.new-board": "newBoard",
+		"click button.back": "removeNewBoardView"
 	},
 	addBoard: function(board){
 		var boardShow = new TrelloClone.Views.BoardIndexItem({
@@ -29,10 +29,25 @@ TrelloClone.Views.BoardIndex = Backbone.CompositeView.extend({
 		var id = $target.data('id');
 		Backbone.history.navigate('boards/' + id, { trigger: true })
 	},
-	newBoard: function(){
-		var boardNewFormView = new TrelloClone.Views.BoardNewForm({collection: this.collection});
-		this.addSubview(".new-board", boardNewFormView);
-	}
+	addNewBoardButton: function(){
+		var boardNewView = new TrelloClone.Views.BoardIndexNewItem();
+		this._newBoardButton = boardNewView
+		this.addSubview(".new-board", boardNewView);
+	},
+	removeNewBoardButton: function(){
+		this._newBoardButton.remove();
+	},
+	newBoard: function(event){
+		event.preventDefault();
+		this._boardNewFormView = new TrelloClone.Views.BoardNewForm({collection: this.collection});
+		this.removeNewBoardButton();
+		this.addSubview(".new-board-form", this._boardNewFormView);
+	},
+	removeNewBoardView: function(){
+		event.preventDefault();
+		this._boardNewFormView.remove();
+		this.addNewBoardButton();
+	},
 	render: function(){
 		var content = this.template();
 
