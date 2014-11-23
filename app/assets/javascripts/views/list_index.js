@@ -33,9 +33,9 @@ TrelloClone.Views.ListIndex = Backbone.CompositeView.extend({
 	},
 	newList: function(event){
 		event.preventDefault();
-		this._listNewFormView = new TrelloClone.Views.BoardNewForm({collection: this.collection});
-		this.removeNewBoardButton();
-		this.addSubview(".new-board-form", this._boardNewFormView);
+		this._listNewFormView = new TrelloClone.Views.ListNewForm({model: this.model});
+		this.removeNewListButton();
+		this.addSubview(".new-list-form", this._listNewFormView);
 	},
 	removeNewListView: function(){
 
