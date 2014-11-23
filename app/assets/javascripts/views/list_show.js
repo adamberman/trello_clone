@@ -2,8 +2,14 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
 	initialize: function(){
 		this.listenTo(this.model, "sync", this.render);
 		this.addCardIndex(this.model);
+		this.addListDeleteButton();
 	},
 	template: JST['lists/list_show'],
+	events: {
+		// "hover div.list-show": "addListDeleteButton",
+		// "mouseout div.list-show": "removeListDeleteButton",
+		"click button.list-delete-item": "deleteList"
+	},
 	addCardIndex: function(cardIndex){
 		var cardIndexShow = new TrelloClone.Views.CardIndex({
 			model: cardIndex,
@@ -11,11 +17,17 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
 		});
 		this.addSubview(".card-index", cardIndexShow);
 	},
-	removeCardIndex: function(cardIndex){
-		var cardIndexShow = _.find(this.subviews(".card-index"), function(subview){
-			return subview.model === cardIndex;
-		});
-		this.removeSubview(".card-index", cardIndexShow);
+	addListDeleteButton: function(){
+		this._listDeleteButton = new TrelloClone.Views.ListShowDeleteItem();
+		this.addSubview('.list-delete-button', this._listDeleteButton);
+	},
+	removeListDeleteButton: function(){
+		this.removeSubview('.list-delete-button', this._listDeleteButton);
+		this._listDeleteButton.remove();
+	},
+	deleteList: function(event){
+		event.preventDefault();
+		this.model.destroy();
 	},
 	render: function(){
 		var content = this.template({

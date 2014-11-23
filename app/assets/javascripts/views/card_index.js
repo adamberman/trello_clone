@@ -52,7 +52,6 @@ TrelloClone.Views.CardIndex = Backbone.CompositeView.extend({
 
 		newCard.save({}, {
 			success: function(){
-				debugger;
 				this.collection.add(newCard);
 				this.removeNewCardView();
 			}.bind(this)
