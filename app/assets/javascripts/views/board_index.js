@@ -10,7 +10,8 @@ TrelloClone.Views.BoardIndex = Backbone.CompositeView.extend({
 	events: {
 		"click button.board": "selectBoard",
 		"click button.new-board": "newBoard",
-		"click button.back": "removeNewBoardView"
+		"click button.back": "removeNewBoardView",
+		"submit form": "submit"
 	},
 	addBoard: function(board){
 		var boardShow = new TrelloClone.Views.BoardIndexItem({
@@ -47,6 +48,19 @@ TrelloClone.Views.BoardIndex = Backbone.CompositeView.extend({
 		event.preventDefault();
 		this._boardNewFormView.remove();
 		this.addNewBoardButton();
+	},
+	submit: function(event){
+		event.preventDefault();
+
+		var params = $(event.currentTarget).serializeJSON();
+		var newBoard = new TrelloClone.Models.Board(params["board"]);
+
+		newBoard.save({}, {
+			success: function(){
+				this.collection.add(newBoard);
+				Backbone.history.navigate('boards/' + newBoard.id, { trigger: true });
+			}.bind(this)
+		})
 	},
 	render: function(){
 		var content = this.template();
