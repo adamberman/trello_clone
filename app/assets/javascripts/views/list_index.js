@@ -10,7 +10,7 @@ TrelloClone.Views.ListIndex = Backbone.CompositeView.extend({
 	events: {
 		"click button.new-list-item": "newList",
 		"click button.back": "removeNewListView",
-		"submit form": "submit"
+		"submit form.new-list": "submit"
 	},
 	addList: function(list){
 		var listShow = new TrelloClone.Views.ListShow({
