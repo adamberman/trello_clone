@@ -31,9 +31,8 @@ TrelloClone.Views.BoardIndex = Backbone.CompositeView.extend({
 		Backbone.history.navigate('boards/' + id, { trigger: true })
 	},
 	addNewBoardButton: function(){
-		var boardNewView = new TrelloClone.Views.BoardIndexNewItem();
-		this._newBoardButton = boardNewView
-		this.addSubview(".new-board", boardNewView);
+		this._newBoardButton = new TrelloClone.Views.BoardIndexNewItem();
+		this.addSubview(".new-board", this._newBoardButton);
 	},
 	removeNewBoardButton: function(){
 		this._newBoardButton.remove();
