@@ -43,7 +43,7 @@ TrelloClone.Views.BoardIndex = Backbone.CompositeView.extend({
 		this.removeNewBoardButton();
 		this.addSubview(".new-board-form", this._boardNewFormView);
 	},
-	removeNewBoardView: function(){
+	removeNewBoardView: function(event){
 		event.preventDefault();
 		this._boardNewFormView.remove();
 		this.addNewBoardButton();

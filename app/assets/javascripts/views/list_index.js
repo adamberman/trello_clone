@@ -1,6 +1,7 @@
 TrelloClone.Views.ListIndex = Backbone.CompositeView.extend({
 	initialize: function(){
 		this.listenTo(this.collection, "sync", this.render);
+		this.listenTo(this.model, "sync", this.render);
 		this.listenTo(this.collection, "add", this.addList);
 		this.listenTo(this.collection, "remove", this.removeList);
 		this.collection.each(this.addList.bind(this));
@@ -38,10 +39,22 @@ TrelloClone.Views.ListIndex = Backbone.CompositeView.extend({
 		this.addSubview(".new-list-form", this._listNewFormView);
 	},
 	removeNewListView: function(){
-
+		event.preventDefault();
+		this._listNewFormView.remove();
+		this.addNewListButton();
 	},
-	submit: function(){
+	submit: function(event){
+		event.preventDefault();
 
+		var params = $(event.currentTarget).serializeJSON();
+		var newList = new TrelloClone.Models.List(params["list"]);
+
+		newList.save({}, {
+			success: function(){
+				this.collection.add(newList);
+				this.addNewListButton();
+			}.bind(this)
+		})
 	},
 	render: function(){
 		var content = this.template();
