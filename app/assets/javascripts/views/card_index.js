@@ -11,6 +11,7 @@ TrelloClone.Views.CardIndex = Backbone.CompositeView.extend({
 		"click button.new-card-item": "newCard",
 		"click button.back": "removeNewCardView",
 		"submit form": "submit"
+	},
 	addCard: function(card){
 		var cardShow = new TrelloClone.Views.CardItem({
 			model: card
@@ -51,6 +52,7 @@ TrelloClone.Views.CardIndex = Backbone.CompositeView.extend({
 
 		newCard.save({}, {
 			success: function(){
+				debugger;
 				this.collection.add(newCard);
 				this.removeNewCardView();
 			}.bind(this)
