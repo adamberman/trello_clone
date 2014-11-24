@@ -57,11 +57,17 @@ TrelloClone.Views.ListIndex = Backbone.CompositeView.extend({
 			}.bind(this)
 		})
 	},
+	onRender: function(){
+		Backbone.CompositeView.prototype.onRender.call(this);
+		this.$('.lists').sortable({connectWith: '.lists'});
+	},
 	render: function(){
 		var content = this.template();
 
 		this.$el.html(content);
 		this.attachSubviews();
+		this.onRender();
+		debugger;
 		return this;
 	}
 })

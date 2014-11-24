@@ -6,9 +6,11 @@ TrelloClone.Views.CardItem = Backbone.View.extend({
 	events: {
 		"click button.card-delete-item": "deleteCard"
 	},
+	tagName: "li",
+	className: "card-item list-group-item",
 	deleteCard: function(event){
 		event.preventDefault();
-		debugger; 
+		debugger;
 		this.model.destroy();
 	},
 	render: function(){

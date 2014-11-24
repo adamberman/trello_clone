@@ -18,6 +18,10 @@ TrelloClone.Views.CardIndex = Backbone.CompositeView.extend({
 		});
 		this.addSubview(".cards", cardShow);
 	},
+	onRender: function(){
+		Backbone.CompositeView.prototype.onRender.call(this);
+		this.$('.cards').sortable({connectWith: '.cards'});
+	},
 	removeCard: function(card){
 		var cardShow = _.find(this.subviews(".cards"), function(subview){
 			return subview.model === card;

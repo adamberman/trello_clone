@@ -1,0 +1,26 @@
+<style>
+#test {
+height: 100px;width:100px;border:thin solid black;
+}
+#test:hover {
+	background:blue;
+}
+</style>
+
+
+<div id='test'></div>
+
+<script>
+
+test.addEventListener('mouseover', function () {
+  console.log('mouse is over');
+})
+
+test.addEventListener('mouseenter', function () {
+  console.log('mouse entered');
+})
+
+test.addEventListener('mouseleave', function () {
+  console.log('mouse left');
+})
+</script>

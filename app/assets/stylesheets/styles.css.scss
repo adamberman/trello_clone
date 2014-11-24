@@ -1,0 +1,19 @@
+/* List Show*/
+
+button.list-delete-item {
+	visibility: hidden;
+}
+
+div.list-show:hover button.list-delete-item {
+	visibility: visible;
+}
+
+/* Card Show */
+button.card-delete-item{
+	visibility: hidden;
+}
+
+li.card-item:hover button.card-delete-item {
+	visibility: visible;
+}
+
