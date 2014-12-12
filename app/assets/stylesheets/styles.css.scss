@@ -22,7 +22,28 @@ li.card-item:hover button.card-delete-item {
 	visibility: visible;
 }
 
+/* board show */
 .buttons {
 	margin-top: 20px;
+}
+
+
+/* board index */
+.board-index-item-wrapper {
+	display: inline-block;
+	margin: 10px;
+}
+
+button.board, button.new-board {
+	min-width: 125px;
+	min-height: 75px;
+}
+
+.new-board {
+	display: inline-block;
+}
+
+.boards {
+	display: inline-block;
 }
 
