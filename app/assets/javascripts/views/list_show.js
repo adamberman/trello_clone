@@ -33,6 +33,7 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
 			list: this.model
 		});
 		this.$el.html(content);
+		this.$el.data('id', this.model.id)
 		this.attachSubviews();
 		return this;
 	}
