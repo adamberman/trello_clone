@@ -4,8 +4,13 @@ button.list-delete-item {
 	visibility: hidden;
 }
 
-div.list-show:hover button.list-delete-item {
+li.list-show:hover button.list-delete-item {
 	visibility: visible;
+}
+
+.cards {
+	min-width: 10px;
+	min-height: 10px;
 }
 
 /* Card Show */

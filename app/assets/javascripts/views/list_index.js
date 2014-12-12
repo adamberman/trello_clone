@@ -10,7 +10,22 @@ TrelloClone.Views.ListIndex = Backbone.CompositeView.extend({
 	events: {
 		"click button.new-list-item": "newList",
 		"click button.back": "removeNewListView",
-		"submit form.new-list": "submit"
+		"submit form.new-list": "submit",
+		"sortstop .lists": "dropList"
+	},
+	dropList: function(event, ui){
+		// in view, add jquery data id to the list, then iterate through, get the model's index, update the ord, send update to server)
+		// debugger;
+		// var end = $(event.currentTarget).children().length;
+		// var arr = []
+		// for(var i = 0; i < end; i++){
+
+
+		// 	$(event.currentTarget).children().get(i)
+		// }
+		// // ui.item.children().attr('data-id')
+		// this.collection.toArray().forEach(function(model){console.log(model.get('ord'))})
+		// // console.log($(ui.item).attr('id'));
 	},
 	addList: function(list){
 		var listShow = new TrelloClone.Views.ListShow({
@@ -67,7 +82,6 @@ TrelloClone.Views.ListIndex = Backbone.CompositeView.extend({
 		this.$el.html(content);
 		this.attachSubviews();
 		this.onRender();
-		debugger;
 		return this;
 	}
 })
