@@ -13,9 +13,19 @@ TrelloClone.Views.CardIndex = Backbone.CompositeView.extend({
 	events: {
 		"click button.new-card-item": "newCard",
 		"click button.back": "removeNewCardView",
-		"submit form.new-card": "submit"
+		"submit form.new-card": "submit",
+		"sortstart .cards": "pickUpCard",
+		"sortstop .cards": "dropCard"
+	},
+
+	pickUpCard: function(event, ui) {
+		var id = parseInt($(event.currentTarget).children().attr('id'));
 	},
 	
+	dropCard: function(card) {
+		alert('goodbye');
+	},
+
 	addCard: function(card){
 		var cardShow = new TrelloClone.Views.CardItem({
 			model: card

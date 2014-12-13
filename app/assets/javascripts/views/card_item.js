@@ -16,7 +16,6 @@ TrelloClone.Views.CardItem = Backbone.View.extend({
 	
 	deleteCard: function(event){
 		event.preventDefault();
-		debugger;
 		this.model.destroy();
 	},
 	
@@ -25,6 +24,7 @@ TrelloClone.Views.CardItem = Backbone.View.extend({
 			card: this.model
 		});
 		this.$el.html(content);
+		this.$el.attr('id', this.model.id);
 		return this;
 	}
 })

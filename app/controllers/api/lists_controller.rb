@@ -12,6 +12,12 @@ module Api
       end
     end
 
+    def index
+      debugger
+      @lists = current_board.lists
+      render :index
+    end
+
     def destroy
       @list = List.find(params[:id])
       @list.destroy

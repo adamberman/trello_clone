@@ -1,0 +1,1 @@
+json.array! @lists, partial: 'boards/list', as: :list

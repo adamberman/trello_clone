@@ -1,11 +1,13 @@
 TrelloClone.Views.ListIndex = Backbone.CompositeView.extend({
 	
 	initialize: function(){
+		this.lists = [];
 		this.listenTo(this.collection, "sync", this.render);
 		this.listenTo(this.collection, "add", this.addList);
 		this.listenTo(this.collection, "remove", this.removeList);
 		this.collection.each(this.addList.bind(this));
 		this.addNewListButton();
+		this.timesUpdated = 0;
 	},
 	
 	template: JST['lists/list_index'],
@@ -18,13 +20,33 @@ TrelloClone.Views.ListIndex = Backbone.CompositeView.extend({
 	},
 	
 	dropList: function(event, ui){
-		var listOrder = [];
+		var updatedLists = []
 		var lists = $(event.currentTarget).children();
 		var listCount = lists.length;
 		for(var i = 0; i < listCount; i++) {
-			listOrder.push($(lists[i].children).data('id'));
+			var id = ($(lists[i].children).data('id'));
+			var list = this.collection.get(id);
+			this.removeList(list);
+			list.set('ord', i);
+			updatedLists.push(list);
 		}
-		console.log(listOrder);
+		var that = this;
+		_(updatedLists).each(function(list){
+			that.addList(list);
+			list.save({}, {
+				success: that.updateCollectionIfSaved(1)
+				}
+			);
+		})
+	},
+
+	updateCollectionIfSaved: function(num){
+		if (this.timesUpdated + num === this.collection.length) {
+			this.timesUpdated = 0;
+			this.render();
+		} else {
+			this.timesUpdated += num;
+		}
 	},
 	
 	addList: function(list){
@@ -32,6 +54,7 @@ TrelloClone.Views.ListIndex = Backbone.CompositeView.extend({
 			model: list
 		});
 		this.addSubview(".lists", listShow);
+		this.lists.push(list);
 	},
 	
 	removeList: function(list){
@@ -39,8 +62,10 @@ TrelloClone.Views.ListIndex = Backbone.CompositeView.extend({
 			return subview.model === list;
 		});
 		this.removeSubview(".lists", listShow);
+		var index = this.lists.indexOf(list);
+		this.lists.splice(index, 1);
 	},
-	
+
 	addNewListButton: function(){
 		this._newListButton = new TrelloClone.Views.ListIndexNewItem();
 		this.addSubview(".new-list", this._newListButton);
