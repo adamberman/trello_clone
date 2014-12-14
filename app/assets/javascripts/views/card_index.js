@@ -23,13 +23,11 @@ TrelloClone.Views.CardIndex = Backbone.CompositeView.extend({
 		var id = parseInt(ui.item.attr('id'));
 		var card = this.collection.get(id);
 		this.collection.remove(card);
-		this.updateCardsOrder();
 	},
 
 	dropCard: function(event, ui) {
 		var id = parseInt(ui.item.attr('id'));
 		var card = new TrelloClone.Models.Card({ id: id });
-		card.fetch()
 		this.collection.add(card);
 		this.updateCardsOrder();
 	},
@@ -37,7 +35,7 @@ TrelloClone.Views.CardIndex = Backbone.CompositeView.extend({
 	updateCardsOrder: function(){
 		var cards = this.$('.card-item').not('.ui-sortable-placeholder');
 		for (var i = 0; i < this.cards.length; i++) {
-			var id = cards[i].data('id');
+			var id = parseInt($(cards[i]).attr('id'));
 			var card = this.collection.get(id);
 			this.removeCard(card);
 			card.set('ord', i);
